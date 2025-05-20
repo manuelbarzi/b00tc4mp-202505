@@ -1,3 +1,7 @@
+// https://docs.google.com/spreadsheets/d/1q9wCdee_0CeLgLNyVqHfCONq7_TgKEQwB1T_GTtVrGA/edit?usp=sharing
+
+// objects
+
 var sabrina = {
     studies: {
         superior: [{
@@ -59,3 +63,28 @@ sabrina.get = function (path) {
 var secondaryYear = sabrina.get('studies.basic.1.year')
 console.log(secondaryYear)
 // 2008
+
+// primitives
+
+var num = 10
+
+num.name = 'D10S'
+console.log(num.name)
+// undefined
+
+console.log(num)
+
+// re-assign value (copy 7)
+var num = 7
+
+var salute = 'hello sabrina'
+
+var words = salute.split(' ')
+console.log(words)
+console.log(salute)
+
+console.log(salute[0])
+// h
+salute[0] = 'H'
+console.log(salute[0])
+// h
