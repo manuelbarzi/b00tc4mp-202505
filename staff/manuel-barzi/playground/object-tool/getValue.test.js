@@ -78,3 +78,71 @@ console.info('CASE gets fifth level value in object tree')
 
     console.assert(value === 'world', 'value is "world"')
 }
+
+console.info('CASE gets same object on none path parameter')
+
+{
+    const value = getValue(o1)
+
+    console.assert(value === o1, 'value is o1')
+}
+
+console.info('CASE throws error on non-string path')
+
+{
+    let expectedError = null
+
+    try {
+        getValue(o1, undefined)
+    } catch (error) {
+        expectedError = error
+    }
+
+    console.assert(expectedError instanceof TypeError, 'error is instance of TypeError')
+    console.assert(expectedError.message === 'path is not a string')
+}
+
+console.info('CASE throws error on wrong path to array')
+
+{
+    let expectedError = null
+
+    try {
+        getValue(o1, 'k1.10')
+    } catch (error) {
+        expectedError = error
+    }
+
+    console.assert(expectedError instanceof RangeError, 'error is instance of RangeError')
+    console.assert(expectedError.message === 'path does not exist')
+}
+
+console.info('CASE throws error on wrong path to object')
+
+{
+    let expectedError = null
+
+    try {
+        getValue(o1, 'k1.10')
+    } catch (error) {
+        expectedError = error
+    }
+
+    console.assert(expectedError instanceof RangeError, 'error is instance of RangeError')
+    console.assert(expectedError.message === 'path does not exist')
+}
+
+console.info('CASE throws error on non-object target')
+
+{
+    let expectedError = null
+
+    try {
+        getValue(undefined, 'k1.0')
+    } catch (error) {
+        expectedError = error
+    }
+
+    console.assert(expectedError instanceof TypeError, 'error is instance of TypeError')
+    console.assert(expectedError.message === 'target is not an object')
+}
