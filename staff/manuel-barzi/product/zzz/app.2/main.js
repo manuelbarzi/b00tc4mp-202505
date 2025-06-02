@@ -1,5 +1,3 @@
-const users = []
-
 //const body = document.querySelector('body')
 const body = document.body
 
@@ -60,23 +58,6 @@ const register = document.createElement('div')
 
     const form = document.createElement('form')
 
-    form.addEventListener('submit', event => {
-        event.preventDefault()
-
-        const name = nameInput.value
-        const email = emailInput.value
-        const username = usernameInput.value
-        const password = passwordInput.value
-
-        // TODO check user exists (by email and/or username). in case yes, then show error 'user already exists'. otherwise continue...
-
-        const user = { name, email, username, password }
-
-        users.push(user)
-
-        // TODO navigate to login
-    })
-
     const nameField = document.createElement('div')
     nameField.classList.add('flex', 'flex-col', 'm-y-10')
 
@@ -136,7 +117,7 @@ const register = document.createElement('div')
 
     const passwordInput = document.createElement('input')
     passwordInput.id = 'password'
-    passwordInput.type = 'password'
+    passwordInput.type = 'text'
     passwordField.appendChild(passwordInput)
 
     form.appendChild(passwordField)
@@ -217,7 +198,7 @@ const login = document.createElement('div')
 
     const passwordInput = document.createElement('input')
     passwordInput.id = 'password'
-    passwordInput.type = 'password'
+    passwordInput.type = 'text'
     passwordField.appendChild(passwordInput)
 
     form.appendChild(passwordField)
