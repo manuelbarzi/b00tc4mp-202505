@@ -1,3 +1,11 @@
+const users = [{
+    name: 'Peter Pan',
+    email: 'peter@pan.com',
+    username: 'peterpan',
+    password: '123123123'
+}]
+
+//const body = document.querySelector('body')
 const body = document.body
 
 const landing = document.createElement('div')
@@ -66,9 +74,19 @@ const register = document.createElement('div')
             const username = usernameInput.value
             const password = passwordInput.value
 
-            registerUser(name, email, username, password)
+            // TODO check user exists (by email and/or username). in case yes, then show error 'user already exists'. otherwise continue...
+
+            let user = users.find(user => user.email === email || user.username === username)
+
+            if (user) throw new Error('user already exists')
+
+            user = { name, email, username, password }
+
+            users.push(user)
 
             form.reset()
+
+            // TODO navigate to login
 
             body.removeChild(register)
             body.appendChild(login)
@@ -199,7 +217,11 @@ const login = document.createElement('div')
             const username = usernameInput.value
             const password = passwordInput.value
 
-            loginUser(username, password)
+            const user = users.find(user => user.username === username)
+
+            if (!user) throw new Error('user not found')
+
+            if (user.password !== password) throw new Error('wrong password')
 
             form.reset()
 
