@@ -1,5 +1,3 @@
-const userLoggedIn = logic.isUserLoggedIn()
-
 const body = document.body
 
 const landing = document.createElement('div')
@@ -45,8 +43,7 @@ const landing = document.createElement('div')
 
     landing.appendChild(navigations)
 
-    if (!userLoggedIn)
-        body.appendChild(landing)
+    body.appendChild(landing)
 }
 
 const register = document.createElement('div')
@@ -69,7 +66,7 @@ const register = document.createElement('div')
             const username = usernameInput.value
             const password = passwordInput.value
 
-            logic.registerUser(name, email, username, password)
+            registerUser(name, email, username, password)
 
             form.reset()
 
@@ -202,16 +199,9 @@ const login = document.createElement('div')
             const username = usernameInput.value
             const password = passwordInput.value
 
-            logic.loginUser(username, password)
+            loginUser(username, password)
 
             form.reset()
-
-            const user = logic.getUserInfo()
-
-            const salutation = home.querySelector('p')
-            salutation.childNodes[0].remove()
-            const salutationText = document.createTextNode(`Hello, ${user.name}!`)
-            salutation.appendChild(salutationText)
 
             body.removeChild(login)
             body.appendChild(home)
@@ -316,30 +306,11 @@ const home = document.createElement('div')
     logoutButton.addEventListener('click', event => {
         event.preventDefault()
 
-        try {
-            logic.logoutUser()
-
-            body.removeChild(home)
-            body.appendChild(login)
-        } catch (error) {
-            alert(error.message)
-        }
-
+        body.removeChild(home)
+        body.appendChild(login)
     })
 
     home.appendChild(logoutButton)
 
-    if (userLoggedIn) {
-        try {
-            const user = logic.getUserInfo()
-
-            salutation.childNodes[0].remove()
-            const salutationText = document.createTextNode(`Hello, ${user.name}!`)
-            salutation.appendChild(salutationText)
-
-            body.appendChild(home)
-        } catch (error) {
-            alert(error.message)
-        }
-    }
+    // body.appendChild(home)
 }
