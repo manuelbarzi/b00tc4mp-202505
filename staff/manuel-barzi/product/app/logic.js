@@ -1,75 +1,113 @@
-const registerUser = (name, email, username, password) => {
-    // TODO add regex validations
+let logic
 
-    if (typeof name !== 'string') throw new TypeError('invalid name type')
-    if (!name.length) throw new RangeError('invalid name length')
+{
+    const registerUser = (name, email, username, password) => {
+        // TODO add regex validations
 
-    if (typeof email !== 'string') throw new TypeError('invalid email type')
-    if (!email.length) throw new RangeError('invalid email length')
+        if (typeof name !== 'string') throw new TypeError('invalid name type')
+        if (!name.length) throw new RangeError('invalid name length')
 
-    if (typeof username !== 'string') throw new TypeError('invalid username type')
-    if (!username.length) throw new RangeError('invalid username length')
+        if (typeof email !== 'string') throw new TypeError('invalid email type')
+        if (!email.length) throw new RangeError('invalid email length')
 
-    if (typeof password !== 'string') throw new TypeError('invalid password type')
-    if (!password.length) throw new RangeError('invalid password length')
+        if (typeof username !== 'string') throw new TypeError('invalid username type')
+        if (!username.length) throw new RangeError('invalid username length')
 
-    const users = data.getUsers()
+        if (typeof password !== 'string') throw new TypeError('invalid password type')
+        if (!password.length) throw new RangeError('invalid password length')
 
-    let user = users.find(user => user.email === email || user.username === username)
+        const users = data.getUsers()
 
-    if (user) throw new Error('user already exists')
+        let user = users.find(user => user.email === email || user.username === username)
 
-    const id = parseInt((Date.now() + Math.random()).toString().replace('.', '')).toString(36)
+        if (user) throw new Error('user already exists')
 
-    user = { id, name, email, username, password }
+        const id = parseInt((Date.now() + Math.random()).toString().replace('.', '')).toString(36)
 
-    users.push(user)
+        user = { id, name, email, username, password }
 
-    data.setUsers(users)
-}
+        users.push(user)
 
-const loginUser = (username, password) => {
-    // TODO add regex validations
+        data.setUsers(users)
+    }
 
-    if (typeof username !== 'string') throw new TypeError('invalid username type')
-    if (!username.length) throw new RangeError('invalid username length')
+    const loginUser = (username, password) => {
+        // TODO add regex validations
 
-    if (typeof password !== 'string') throw new TypeError('invalid password type')
-    if (!password.length) throw new RangeError('invalid password length')
+        if (typeof username !== 'string') throw new TypeError('invalid username type')
+        if (!username.length) throw new RangeError('invalid username length')
 
-    const users = data.getUsers()
+        if (typeof password !== 'string') throw new TypeError('invalid password type')
+        if (!password.length) throw new RangeError('invalid password length')
 
-    const user = users.find(user => user.username === username)
+        const users = data.getUsers()
 
-    if (!user) throw new Error('user not found')
+        const user = users.find(user => user.username === username)
 
-    if (user.password !== password) throw new Error('wrong password')
+        if (!user) throw new Error('user not found')
 
-    data.setUserId(user.id)
-}
+        if (user.password !== password) throw new Error('wrong password')
 
-const getUserInfo = () => {
-    const userId = data.getUserId()
+        data.setUserId(user.id)
+    }
 
-    const users = data.getUsers()
+    const getUserInfo = () => {
+        const userId = data.getUserId()
 
-    const user = users.find(user => user.id === userId)
+        const users = data.getUsers()
 
-    if (!user) throw Error('user not found')
+        const user = users.find(user => user.id === userId)
 
-    delete user.password
+        if (!user) throw Error('user not found')
 
-    return user
-}
+        delete user.password
 
-const isUserLoggedIn = () => !!data.getUserId()
+        return user
+    }
 
-const logoutUser = () => data.removeUserId()
+    const isUserLoggedIn = () => !!data.getUserId()
 
-const logic = {
-    registerUser,
-    loginUser,
-    getUserInfo,
-    isUserLoggedIn,
-    logoutUser
+    const logoutUser = () => data.removeUserId()
+
+
+    const createPost = (image, text) => {
+        // TODO store in data
+
+        /*
+        const userId = data.getUserId()
+
+        // search user, if not found, then error
+
+        const user = ...
+
+        const post = {
+            id: ...,
+            author: user.id,
+            image,
+            text,
+            date: new Date().toISOString()
+        }
+        
+        const posts = data.getPosts()
+
+        posts.push(post)
+
+        data.setPosts(posts)
+        */
+    }
+
+    const getPosts = () => {
+        // TODO read all post from data
+    }
+
+    logic = {
+        registerUser,
+        loginUser,
+        getUserInfo,
+        isUserLoggedIn,
+        logoutUser,
+
+        createPost,
+        getPosts
+    }
 }
