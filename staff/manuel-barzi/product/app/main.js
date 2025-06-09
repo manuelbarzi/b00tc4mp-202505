@@ -335,6 +335,19 @@ const home = document.createElement('div')
 
     home.appendChild(logoutButton)
 
+    const newPostButton = document.createElement('button')
+    newPostButton.type = 'button'
+    const newPostButtonText = document.createTextNode('+')
+    newPostButton.appendChild(newPostButtonText)
+
+    newPostButton.addEventListener('click', event => {
+        event.preventDefault()
+
+        home.appendChild(createPost)
+    })
+
+    home.appendChild(newPostButton)
+
     if (userLoggedIn) {
         try {
             const user = logic.getUserInfo()
@@ -348,4 +361,100 @@ const home = document.createElement('div')
             alert(error.message)
         }
     }
+}
+
+const createPost = document.createElement('div')
+
+{
+    const title = document.createElement('h2')
+    const titleText = document.createTextNode('New post')
+    title.appendChild(titleText)
+
+    createPost.appendChild(title)
+
+    const form = document.createElement('form')
+
+    form.addEventListener('submit', event => {
+        event.preventDefault()
+
+        try {
+            const image = imageInput.value
+            const text = textInput.value
+
+            logic.createPost(image, text)
+
+            form.reset()
+
+            home.removeChild(createPost)
+        } catch (error) {
+            alert(error.message)
+        }
+    })
+
+    const imageField = document.createElement('div')
+    imageField.classList.add('flex', 'flex-col', 'm-y-10')
+
+    const imageLabel = document.createElement('label')
+    imageLabel.htmlFor = 'image'
+    const imageLabelText = document.createTextNode('Image')
+    imageLabel.appendChild(imageLabelText)
+    imageField.appendChild(imageLabel)
+
+    const imageInput = document.createElement('input')
+    imageInput.id = 'image'
+    imageInput.type = 'url'
+    imageField.appendChild(imageInput)
+
+    form.appendChild(imageField)
+
+    const textField = document.createElement('div')
+    textField.classList.add('flex', 'flex-col', 'm-y-10')
+
+    const textLabel = document.createElement('label')
+    textLabel.htmlFor = 'text'
+    const textLabelText = document.createTextNode('Text')
+    textLabel.appendChild(textLabelText)
+    textField.appendChild(textLabel)
+
+    const textInput = document.createElement('input')
+    textInput.id = 'text'
+    textInput.type = 'text'
+    textField.appendChild(textInput)
+
+    form.appendChild(textField)
+
+    const buttons = document.createElement('div')
+    buttons.classList.add('flex', 'justify-end')
+
+    const cancelButton = document.createElement('button')
+    cancelButton.type = 'button'
+    const cancelButtonText = document.createTextNode('Cancel')
+    cancelButton.appendChild(cancelButtonText)
+
+    cancelButton.addEventListener('click', event => {
+        form.reset()
+
+        home.removeChild(createPost)
+    })
+
+    buttons.appendChild(cancelButton)
+
+    const submitButton = document.createElement('button')
+    submitButton.type = 'submit'
+    const submitButtonText = document.createTextNode('Create')
+    submitButton.appendChild(submitButtonText)
+
+    buttons.appendChild(submitButton)
+
+    form.appendChild(buttons)
+
+    createPost.appendChild(form)
+
+    // home.appendChild(createPost)
+}
+
+const posts = document.createElement('div')
+
+{
+    // TODO add ul with lis to list all posts
 }

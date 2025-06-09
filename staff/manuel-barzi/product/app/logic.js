@@ -71,29 +71,32 @@ let logic
 
 
     const createPost = (image, text) => {
-        // TODO store in data
+        if (typeof image !== 'string') throw new TypeError('invalid image type')
+        if (typeof text !== 'string') throw new TypeError('invalid text type')
 
-        /*
         const userId = data.getUserId()
 
-        // search user, if not found, then error
+        const users = data.getUsers()
 
-        const user = ...
+        const user = users.find(user => user.id === userId)
+
+        if (!user) throw new Error('user not found')
+
+        const id = parseInt((Date.now() + Math.random()).toString().replace('.', '')).toString(36)
 
         const post = {
-            id: ...,
+            id: id,
             author: user.id,
             image,
             text,
             date: new Date().toISOString()
         }
-        
+
         const posts = data.getPosts()
 
         posts.push(post)
 
         data.setPosts(posts)
-        */
     }
 
     const getPosts = () => {
