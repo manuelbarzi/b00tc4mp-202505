@@ -100,7 +100,19 @@ let logic
     }
 
     const getPosts = () => {
-        // TODO read all post from data
+        const userId = data.getUserId()
+
+        const users = data.getUsers()
+
+        const user = users.find(user => user.id === userId)
+
+        if (!user) throw new Error('user not found')
+
+        const posts = data.getPosts()
+
+        posts.reverse()
+
+        return posts
     }
 
     logic = {
