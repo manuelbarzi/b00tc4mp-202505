@@ -13,18 +13,5 @@ const getPosts = () => {
 
     // TODO add author username on each post (mutation)
 
-    posts.forEach(post => {
-        const user = users.find(user => user.id === post.author)
-
-        if (!user) throw new Error('author not found')
-
-        const { id, username } = user
-
-        // populate author
-        post.author = { id, username }
-
-        post.own = post.author.id === userId
-    })
-
     return posts
 }

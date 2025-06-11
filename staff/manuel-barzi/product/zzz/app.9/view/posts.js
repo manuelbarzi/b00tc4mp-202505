@@ -2,7 +2,6 @@ const posts = document.createElement('div')
 
 {
     const list = document.createElement('ul')
-    list.classList.add('list-style-none', 'p-0')
 
     if (userLoggedIn) {
         try {
@@ -12,14 +11,12 @@ const posts = document.createElement('div')
                 const item = document.createElement('li')
 
                 const title = document.createElement('h3')
-                const titleText = document.createTextNode(post.author.username)
+                const titleText = document.createTextNode(post.author)
                 title.appendChild(titleText)
 
                 item.appendChild(title)
 
                 const image = document.createElement('img')
-
-                image.classList.add('w-full')
                 image.src = post.image
 
                 item.appendChild(image)
@@ -35,28 +32,6 @@ const posts = document.createElement('div')
                 date.appendChild(dateText)
 
                 item.appendChild(date)
-
-                if (post.own) {
-                    const removeButton = document.createElement('button')
-                    removeButton.type = 'button'
-                    const removeButtonText = document.createTextNode('🗑️')
-                    removeButton.appendChild(removeButtonText)
-
-                    removeButton.addEventListener('click', event => {
-                        if (confirm('Delete post?'))
-                            try {
-                                logic.removePost(post.id)
-
-                                // TODO refresh list
-                            } catch (error) {
-                                console.error(error)
-
-                                alert(error.message)
-                            }
-                    })
-
-                    item.appendChild(removeButton)
-                }
 
                 list.appendChild(item)
             })
