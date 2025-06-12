@@ -1,7 +1,7 @@
 const newPost = document.createElement('div')
 
 {
-    const title = util.createTitle(2, 'New post')
+    const title = utils.createTitle(2, 'New post')
 
     newPost.appendChild(title)
 

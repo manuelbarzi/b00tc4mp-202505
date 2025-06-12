@@ -1,7 +1,7 @@
 const register = document.createElement('div')
 
 {
-    const title = utils.createTitle(1, 'Register')
+    const title = util.createTitle(1, 'Register')
 
     register.appendChild(title)
 
@@ -31,93 +31,49 @@ const register = document.createElement('div')
 
     const nameField = document.createElement('div')
     nameField.classList.add('flex', 'flex-col', 'm-y-10')
-
-    const nameLabel = document.createElement('label')
-    nameLabel.htmlFor = 'name'
-    const nameLabelText = document.createTextNode('Name')
-    nameLabel.appendChild(nameLabelText)
+    const nameLabel = util.createLabel('name', 'Name')
     nameField.appendChild(nameLabel)
-
-    const nameInput = document.createElement('input')
-    nameInput.id = 'name'
-    nameInput.type = 'text'
+    const nameInput = util.createInput('name', 'text')
     nameField.appendChild(nameInput)
-
     form.appendChild(nameField)
 
     const emailField = document.createElement('div')
     emailField.classList.add('flex', 'flex-col', 'm-y-10')
-
-    const emailLabel = document.createElement('label')
-    emailLabel.htmlFor = 'email'
-    const emailLabelText = document.createTextNode('E-mail')
-    emailLabel.appendChild(emailLabelText)
+    const emailLabel = util.createLabel('email', 'E-mail')
     emailField.appendChild(emailLabel)
-
-    const emailInput = document.createElement('input')
-    emailInput.id = 'email'
-    emailInput.type = 'email'
+    const emailInput = util.createInput('email', 'email')
     emailField.appendChild(emailInput)
-
     form.appendChild(emailField)
 
     const usernameField = document.createElement('div')
     usernameField.classList.add('flex', 'flex-col', 'm-y-10')
-
-    const usernameLabel = document.createElement('label')
-    usernameLabel.htmlFor = 'username'
-    const usernameLabelText = document.createTextNode('Username')
-    usernameLabel.appendChild(usernameLabelText)
+    const usernameLabel = util.createLabel('username', 'Username')
     usernameField.appendChild(usernameLabel)
-
-    const usernameInput = document.createElement('input')
-    usernameInput.id = 'username'
-    usernameInput.type = 'text'
+    const usernameInput = util.createInput('username', 'text')
     usernameField.appendChild(usernameInput)
-
     form.appendChild(usernameField)
 
     const passwordField = document.createElement('div')
     passwordField.classList.add('flex', 'flex-col', 'm-y-10')
-
-    const passwordLabel = document.createElement('label')
-    passwordLabel.htmlFor = 'password'
-    const passwordLabelText = document.createTextNode('Password')
-    passwordLabel.appendChild(passwordLabelText)
+    const passwordLabel = util.createLabel('password', 'Password')
     passwordField.appendChild(passwordLabel)
-
-    const passwordInput = document.createElement('input')
-    passwordInput.id = 'password'
-    passwordInput.type = 'password'
+    const passwordInput = util.createInput('password', 'password')
     passwordField.appendChild(passwordInput)
-
     form.appendChild(passwordField)
 
     const buttons = document.createElement('div')
     buttons.classList.add('flex', 'justify-end')
-
-    const resetButton = document.createElement('button')
-    resetButton.type = 'reset'
-    const resetButtonText = document.createTextNode('Clear')
-    resetButton.appendChild(resetButtonText)
-
+    const resetButton = util.createButton('reset', 'Clear')
     buttons.appendChild(resetButton)
 
-    const submitButton = document.createElement('button')
-    submitButton.type = 'submit'
-    const submitButtonText = document.createTextNode('Register')
-    submitButton.appendChild(submitButtonText)
-
+    const submitButton = util.createButton('submit', 'Register')
     buttons.appendChild(submitButton)
 
     form.appendChild(buttons)
 
     register.appendChild(form)
 
-    const loginLink = document.createElement('a')
-    loginLink.href = ""
-    const loginLinkText = document.createTextNode('Login')
-    loginLink.appendChild(loginLinkText)
+    const loginLink = util.createAnchor('', 'Login')
 
     loginLink.addEventListener('click', event => {
         event.preventDefault()

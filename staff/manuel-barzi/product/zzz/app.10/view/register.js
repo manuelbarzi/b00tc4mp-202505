@@ -1,9 +1,9 @@
-const login = document.createElement('div')
+const register = document.createElement('div')
 
 {
-    const title = util.createTitle(1, 'Login')
+    const title = utils.createTitle(1, 'Register')
 
-    login.appendChild(title)
+    register.appendChild(title)
 
     const form = document.createElement('form')
 
@@ -11,30 +11,55 @@ const login = document.createElement('div')
         event.preventDefault()
 
         try {
+            const name = nameInput.value
+            const email = emailInput.value
             const username = usernameInput.value
             const password = passwordInput.value
 
-            logic.loginUser(username, password)
+            logic.registerUser(name, email, username, password)
 
             form.reset()
 
-            const user = logic.getUserInfo()
-
-            const salutation = home.querySelector('p')
-            salutation.childNodes[0].remove()
-            const salutationText = document.createTextNode(`Hello, ${user.name}!`)
-            salutation.appendChild(salutationText)
-
-            renderPosts()
-
-            body.removeChild(login)
-            body.appendChild(home)
+            body.removeChild(register)
+            body.appendChild(login)
         } catch (error) {
             console.error(error)
 
             alert(error.message)
         }
     })
+
+    const nameField = document.createElement('div')
+    nameField.classList.add('flex', 'flex-col', 'm-y-10')
+
+    const nameLabel = document.createElement('label')
+    nameLabel.htmlFor = 'name'
+    const nameLabelText = document.createTextNode('Name')
+    nameLabel.appendChild(nameLabelText)
+    nameField.appendChild(nameLabel)
+
+    const nameInput = document.createElement('input')
+    nameInput.id = 'name'
+    nameInput.type = 'text'
+    nameField.appendChild(nameInput)
+
+    form.appendChild(nameField)
+
+    const emailField = document.createElement('div')
+    emailField.classList.add('flex', 'flex-col', 'm-y-10')
+
+    const emailLabel = document.createElement('label')
+    emailLabel.htmlFor = 'email'
+    const emailLabelText = document.createTextNode('E-mail')
+    emailLabel.appendChild(emailLabelText)
+    emailField.appendChild(emailLabel)
+
+    const emailInput = document.createElement('input')
+    emailInput.id = 'email'
+    emailInput.type = 'email'
+    emailField.appendChild(emailInput)
+
+    form.appendChild(emailField)
 
     const usernameField = document.createElement('div')
     usernameField.classList.add('flex', 'flex-col', 'm-y-10')
@@ -80,30 +105,30 @@ const login = document.createElement('div')
 
     const submitButton = document.createElement('button')
     submitButton.type = 'submit'
-    const submitButtonText = document.createTextNode('Login')
+    const submitButtonText = document.createTextNode('Register')
     submitButton.appendChild(submitButtonText)
 
     buttons.appendChild(submitButton)
 
     form.appendChild(buttons)
 
-    login.appendChild(form)
+    register.appendChild(form)
 
-    const registerLink = document.createElement('a')
-    registerLink.href = ""
-    const registerLinkText = document.createTextNode('Register')
-    registerLink.appendChild(registerLinkText)
+    const loginLink = document.createElement('a')
+    loginLink.href = ""
+    const loginLinkText = document.createTextNode('Login')
+    loginLink.appendChild(loginLinkText)
 
-    registerLink.addEventListener('click', event => {
+    loginLink.addEventListener('click', event => {
         event.preventDefault()
 
         form.reset()
 
-        body.removeChild(login)
-        body.appendChild(register)
+        body.removeChild(register)
+        body.appendChild(login)
     })
 
-    login.appendChild(registerLink)
+    register.appendChild(loginLink)
 
-    // body.appendChild(login)
+    // body.appendChild(register)
 }

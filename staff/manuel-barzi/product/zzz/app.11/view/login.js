@@ -1,7 +1,7 @@
 const login = document.createElement('div')
 
 {
-    const title = util.createTitle(1, 'Login')
+    const title = utils.createTitle(1, 'Login')
 
     login.appendChild(title)
 
