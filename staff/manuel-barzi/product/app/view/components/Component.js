@@ -11,3 +11,27 @@ Component.prototype.add = function (child) {
 
     this.container.appendChild(child.container)
 }
+
+Component.prototype.remove = function (child) {
+    if (!(child instanceof Component)) throw new TypeError('child is not a Component')
+
+    const index = this.children.findIndex(_child => _child === child)
+
+    if (index < 0) throw new Error('child not found')
+
+    this.children.splice(index)
+
+    this.container.removeChild(child.container)
+}
+
+Component.prototype.addClass = function (className) {
+    this.container.classList.add(className)
+}
+
+Component.prototype.addBehavior = function (eventName, listener) {
+    this.container.addEventListener(eventName, event => {
+        event.preventDefault()
+
+        listener()
+    })
+}
