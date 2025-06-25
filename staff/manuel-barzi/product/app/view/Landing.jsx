@@ -16,6 +16,8 @@ const Landing = ({ onRegisterClicked, onLoginClicked }) => {
         onLoginClicked()
     }
 
+    console.debug('Landing -> render')
+
     return <div>
         <h1>App</h1>
 

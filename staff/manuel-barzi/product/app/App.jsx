@@ -15,6 +15,8 @@ const App = () => {
 
     const handleUserLoggedIn = () => setView('home')
 
+    console.log('App -> render')
+
     // if (view === 'landing')
     //     return <Landing />
     // else if (view === 'register')

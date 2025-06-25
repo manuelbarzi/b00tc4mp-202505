@@ -30,6 +30,8 @@ const Register = ({ onLoginClicked, onUserRegistered }) => {
         }
     }
 
+    console.debug('Register -> render')
+
     return <div>
         <h1>Register</h1>
 

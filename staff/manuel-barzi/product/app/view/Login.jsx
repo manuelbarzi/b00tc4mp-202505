@@ -26,6 +26,8 @@ const Login = ({ onRegisterClicked, onUserLoggedIn }) => {
         }
     }
 
+    console.debug('Login -> render')
+
     return <div>
         <h1>Login</h1>
 
