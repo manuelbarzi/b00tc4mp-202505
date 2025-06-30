@@ -1,6 +1,4 @@
-import { data } from '../data'
-
-export const registerUser = (name, email, username, password) => {
+const registerUser = (name, email, username, password) => {
     // TODO add regex validations
 
     if (typeof name !== 'string') throw new TypeError('invalid name type')

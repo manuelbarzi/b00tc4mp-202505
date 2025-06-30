@@ -33,7 +33,7 @@ const loadPosts = () => {
     return posts
 }
 
-export const data = {
+const data = {
     saveUsers,
     loadUsers,
 
