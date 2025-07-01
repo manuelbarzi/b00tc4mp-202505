@@ -3,12 +3,9 @@ import { loginUser } from './loginUser'
 import { getUserInfo } from './getUserInfo'
 import { isUserLoggedIn } from './isUserLoggedIn'
 import { logoutUser } from './logoutUser'
-
 import { createPost } from './createPost'
 import { getPosts } from './getPosts'
 import { removePost } from './removePost'
-import { toggleLikePost } from './toggleLikePost'
-import { toggleSavePost } from './toggleSavePost'
 
 export const logic = {
     registerUser,
@@ -19,7 +16,5 @@ export const logic = {
 
     createPost,
     getPosts,
-    removePost,
-    toggleLikePost,
-    toggleSavePost
+    removePost
 }

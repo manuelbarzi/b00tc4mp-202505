@@ -19,8 +19,7 @@ export const createPost = (image, text) => {
         author: user.id,
         image,
         text,
-        date: new Date().toISOString(),
-        likes: []
+        date: new Date().toISOString()
     }
 
     const posts = data.loadPosts()

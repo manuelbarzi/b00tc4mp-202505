@@ -1,6 +1,6 @@
 import { logic } from '../logic'
 
-export const Post = ({ post, onPostRemoved }) => {
+export const Post = ({ post, onPostRemoved, onPostLikeToggled, onPostSaveToggled }) => {
     const handleDeletePostClick = () => {
         if (confirm('Delete post?'))
             try {
@@ -14,6 +14,30 @@ export const Post = ({ post, onPostRemoved }) => {
             }
     }
 
+    const handleToggleLikePostClick = () => {
+        try {
+            logic.toggleLikePost(post.id)
+
+            onPostLikeToggled()
+        } catch (error) {
+            console.error(error)
+
+            alert(error.message)
+        }
+    }
+
+    const handleToggleSavePostClick = () => {
+        try {
+            logic.toggleSavePost(post.id)
+
+            onPostSaveToggled()
+        } catch (error) {
+            console.error(error)
+
+            alert(error.message)
+        }
+    }
+
     console.debug('Post -> render')
 
     return <li>
@@ -24,6 +48,8 @@ export const Post = ({ post, onPostRemoved }) => {
         />
         <p>{post.text}</p>
         <time>{post.date}</time>
+        <button type="button" onClick={handleToggleLikePostClick}>{post.liked ? '❤️' : '🩶'} ({post.likesCount})</button>
+        <button type="button" onClick={handleToggleSavePostClick}>{post.saved ? '🇸🇴' : '🏳️'}</button>
         {post.own && <button type="button" onClick={handleDeletePostClick}>🗑️</button>}
     </li>
 }
