@@ -1,0 +1,82 @@
+[
+    {
+        "brand": "Canon",
+        "model": "EOS R5",
+        "type": "Mirrorless",
+        "megapixels": 45,
+        "sensor": "Full-frame CMOS",
+        "price_usd": 3899
+    },
+    {
+        "brand": "Nikon",
+        "model": "Z7 II",
+        "type": "Mirrorless",
+        "megapixels": 45.7,
+        "sensor": "Full-frame BSI CMOS",
+        "price_usd": 2999
+    },
+    {
+        "brand": "Sony",
+        "model": "A7 IV",
+        "type": "Mirrorless",
+        "megapixels": 33,
+        "sensor": "Full-frame BSI CMOS",
+        "price_usd": 2499
+    },
+    {
+        "brand": "Fujifilm",
+        "model": "X-T5",
+        "type": "Mirrorless",
+        "megapixels": 40.2,
+        "sensor": "APS-C X-Trans CMOS 5 HR",
+        "price_usd": 1699
+    },
+    {
+        "brand": "Canon",
+        "model": "EOS 5D Mark IV",
+        "type": "DSLR",
+        "megapixels": 30.4,
+        "sensor": "Full-frame CMOS",
+        "price_usd": 2499
+    },
+    {
+        "brand": "Nikon",
+        "model": "D850",
+        "type": "DSLR",
+        "megapixels": 45.7,
+        "sensor": "Full-frame BSI CMOS",
+        "price_usd": 2999
+    },
+    {
+        "brand": "Sony",
+        "model": "A7R V",
+        "type": "Mirrorless",
+        "megapixels": 61,
+        "sensor": "Full-frame BSI CMOS",
+        "price_usd": 3899
+    },
+    {
+        "brand": "Panasonic",
+        "model": "Lumix S5",
+        "type": "Mirrorless",
+        "megapixels": 24.2,
+        "sensor": "Full-frame CMOS",
+        "price_usd": 1999
+    },
+    {
+        "brand": "Olympus",
+        "model": "OM-D E-M1 Mark III",
+        "type": "Mirrorless",
+        "megapixels": 20.4,
+        "sensor": "Micro Four Thirds Live MOS",
+        "price_usd": 1799
+    },
+    {
+        "brand": "Leica",
+        "model": "M11 Monochrom",
+        "type": "Mirrorless",
+        "megapixels": 60.3,
+        "sensor": "Full-frame BSI CMOS Monochrome",
+        "price_usd": 9195
+    }
+]
