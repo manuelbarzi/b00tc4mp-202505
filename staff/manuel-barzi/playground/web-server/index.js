@@ -30,7 +30,7 @@ server.get('/search', (request, response) => {
                 <a href="http://localhost:8080/cart">Cart</a>
                 <ul>
                     ${cameras.map(({ id, brand, model, type, filmFormat, price }) => `<li>
-                            <h3>${brand} ${model}</h3>
+                            <h3><a href="http://localhost:8080/products/${id}">${brand} ${model}</a></h3>
 
                             <i>${type} ${filmFormat}</i>
 
