@@ -7,8 +7,12 @@ import { logoutUser } from './logoutUser'
 import { createPost } from './createPost'
 import { getPosts } from './getPosts'
 import { removePost } from './removePost'
-import { toggleLikePost } from './toggleLikePost'
+import { toggleLikePost } from './togglelikePost'
 import { toggleSavePost } from './toggleSavePost'
+import { getSavedPosts } from './getSavedPosts'
+import { toggleArchivePost } from './toggleArchivePost'
+import { getArchivedPosts } from './getArchivedPosts'
+import { getLikedPosts } from './getLikedPosts'
 
 export const logic = {
     registerUser,
@@ -21,5 +25,9 @@ export const logic = {
     getPosts,
     removePost,
     toggleLikePost,
-    toggleSavePost
+    toggleSavePost,
+    getSavedPosts,
+    toggleArchivePost,
+    getArchivedPosts,
+    getLikedPosts
 }

@@ -1,8 +1,12 @@
 import { useState, useEffect } from 'react'
 
+import { logic } from '../logic'
+
 import { Posts } from './Posts'
 
-import { logic } from '../logic'
+import { SavedPosts } from './SavedPosts'
+import { ArchivedPosts } from './ArchivedPosts'
+import { LikedPosts } from './LikedPosts'
 
 export const Home = ({ onUserLoggedOut }) => {
     const [name, setName] = useState('')
@@ -11,9 +15,15 @@ export const Home = ({ onUserLoggedOut }) => {
 
     useEffect(() => {
         try {
-            const user = logic.getUserInfo()
+            logic.getUserInfo()
+                .then(user => {
+                    setName(user.name)
+                })
+                .catch(error => {
+                    console.error(error)
 
-            setName(user.name)
+                    alert(error.message)
+                })
         } catch (error) {
             console.error(error)
 
@@ -35,10 +45,16 @@ export const Home = ({ onUserLoggedOut }) => {
 
         try {
             logic.createPost(image, text)
+                .then(() => {
+                    form.reset()
 
-            form.reset()
+                    setView('posts')
+                })
+                .catch(error => {
+                    console.error(error)
 
-            setView('posts')
+                    alert(error.message)
+                })
         } catch (error) {
             console.error(error)
 
@@ -58,35 +74,60 @@ export const Home = ({ onUserLoggedOut }) => {
         }
     }
 
+    const handleSavedPostsClick = event => {
+        event.preventDefault()
+
+        setView('saved-posts')
+    }
+
+    const handleArchivedPostsClick = event => {
+        event.preventDefault()
+
+        setView('archived-posts')
+    }
+
+    const handleLikedPostsClick = event => {
+        event.preventDefault()
+
+        setView('liked-posts')
+    }
+
+    const handleAppClick = event => {
+        event.preventDefault()
+
+        setView('posts')
+    }
+
     console.debug('Home -> render')
 
     return <div>
-        <h1>App</h1>
+        <h1><a href="" onClick={handleAppClick}>App</a></h1>
         <p className="text-center">Hello, {name}!</p>
         <button type="button" onClick={handleLogoutClick}>Logout</button>
         <button type="button" onClick={handleNewPostClick}>+</button>
-
+        <a href="" onClick={handleSavedPostsClick}>Saved </a>
+        <a href="" onClick={handleArchivedPostsClick}> Archived </a>
+        <a href="" onClick={handleLikedPostsClick}> Liked</a>
         {view === 'posts' && <Posts />}
-
-        {
-            view === 'new-post' && <div>
-                <h2>New post</h2>
-
-                <form onSubmit={handleNewPostSubmit}>
-                    <div className="flex flex-col m-y-10">
-                        <label htmlFor="image">Image</label>
-                        <input id="image" type="url" />
-                    </div>
-                    <div className="flex flex-col m-y-10">
-                        <label htmlFor="text">Text</label>
-                        <input id="text" type="text" />
-                    </div>
-                    <div className="flex justify-end">
-                        <button type="button" onClick={handleNewPostCancelClick}>Cancel</button>
-                        <button type="submit">Create</button>
-                    </div>
-                </form>
-            </div>
-        }
-    </div >
+        {view === 'new-post' && <div>
+            <h2>New post</h2>
+            <form onSubmit={handleNewPostSubmit}>
+                <div className="flex flex-col m-y-10">
+                    <label htmlFor="image">Image</label>
+                    <input id="image" type="url" />
+                </div>
+                <div className="flex flex-col m-y-10">
+                    <label htmlFor="text">Text</label>
+                    <input id="text" type="text" />
+                </div>
+                <div className="flex justify-end">
+                    <button type="button" onClick={handleNewPostCancelClick}>Cancel</button>
+                    <button type="submit">Create</button>
+                </div>
+            </form>
+        </div>}
+        {view === 'saved-posts' && <SavedPosts />}
+        {view === 'archived-posts' && <ArchivedPosts />}
+        {view === 'liked-posts' && <LikedPosts />}
+    </div>
 }

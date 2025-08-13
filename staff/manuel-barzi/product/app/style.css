@@ -6,19 +6,6 @@
     text-align: center;
 }
 
-.border-2 {
-    border-width: 2px;
-    border-style: solid;
-}
-
-.border-green {
-    border-color: green;
-}
-
-.border-red {
-    border-color: red;
-}
-
 .block {
     display: block;
 }

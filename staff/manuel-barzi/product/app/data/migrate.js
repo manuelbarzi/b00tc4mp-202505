@@ -1,4 +1,6 @@
-import { data } from '.'
+import { data } from '.';
+
+// Add likes property to posts
 
 // const posts = data.loadPosts()
 
@@ -6,8 +8,34 @@ import { data } from '.'
 
 // data.savePosts(posts)
 
-const users = data.loadUsers()
+// Add saved property to users
 
-users.forEach(user => user.saved = [])
+// const users = data.loadUsers()
 
-data.saveUsers(users)
+// users.forEach(user => user.saved = [])
+
+// data.saveUsers(users)
+
+// Add archived property to users
+
+// const users = data.loadUsers()
+
+// users.forEach(user => user.archived = [])
+
+// data.saveUsers(users)
+
+// Remove archived property to users
+
+// const users = data.loadUsers()
+
+// users.forEach(user => delete user.archived)
+
+// data.saveUsers(users)
+
+// Add archived property to posts
+
+const posts = data.loadPosts()
+
+posts.forEach(post => post.archived = false)
+
+data.savePosts(posts)

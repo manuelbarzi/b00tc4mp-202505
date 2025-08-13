@@ -1,26 +1,29 @@
 import { data } from '../data'
+import { errors } from 'com'
 
 export const toggleSavePost = postId => {
-    const userId = data.loadUserId()
+    if (typeof postId !== 'string') throw new TypeError('invalid postId type')
 
-    const users = data.loadUsers()
+    return fetch(`http://localhost:8080/posts/${postId}/saved`, {
+        method: 'PATCH',
+        headers: {
+            Authorization: `Bearer ${data.loadUserId()}`
+        },
+    })
+        .catch(error => { throw new Error('connection error') })
+        .then(res => {
+            const { status } = res
 
-    const user = users.find(user => user.id === userId)
+            if (status === 204) return
 
-    if (!user) throw new Error('user not found')
+            return res.json()
+                .catch(error => { throw new Error('json error') })
+                .then(body => {
+                    const { error, message } = body
 
-    const posts = data.loadPosts()
+                    const constructor = errors[error]
 
-    const post = posts.find(post => post.id === postId)
-
-    if (!post) throw new Error('post not found')
-
-    const { saved } = user
-
-    const index = saved.findIndex(savedPostId => savedPostId === postId)
-
-    if (index < 0) saved.push(postId)
-    else saved.splice(index, 1)
-
-    data.saveUsers(users)
+                    throw new constructor(message)
+                })
+        })
 }

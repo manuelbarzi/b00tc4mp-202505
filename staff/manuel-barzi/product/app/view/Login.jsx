@@ -1,7 +1,7 @@
 import { logic } from '../logic'
 
 export const Login = ({ onRegisterClicked, onUserLoggedIn }) => {
-    const handleRegisterClicked = event => {
+    const handleRegisterClick = event => {
         event.preventDefault()
 
         onRegisterClicked()
@@ -17,10 +17,16 @@ export const Login = ({ onRegisterClicked, onUserLoggedIn }) => {
 
         try {
             logic.loginUser(username, password)
+                .then(() => {
+                    form.reset()
 
-            form.reset()
+                    onUserLoggedIn()
+                })
+                .catch(error => {
+                    console.error(error)
 
-            onUserLoggedIn()
+                    alert(error.message)
+                })
         } catch (error) {
             console.error(error)
 
@@ -32,24 +38,20 @@ export const Login = ({ onRegisterClicked, onUserLoggedIn }) => {
 
     return <div>
         <h1>Login</h1>
-
-        <form action="" onSubmit={handleLoginSubmit}>
+        <form onSubmit={handleLoginSubmit}>
             <div className="flex flex-col m-y-10">
                 <label htmlFor="username">Username</label>
-                <input type="text" id="username" />
+                <input type="text" id="username" /*pattern="^[a-zA-Z0-9_]{4,16}$"*/ />
             </div>
-
             <div className="flex flex-col m-y-10">
                 <label htmlFor="password">Password</label>
-                <input type="password" id="password" />
+                <input type="password" id="password" /*pattern="^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{6,}$"*/ />
             </div>
-
             <div className="flex justify-end">
                 <button type="reset">Clear</button>
                 <button type="submit">Login</button>
             </div>
         </form>
-
-        <a href="" onClick={handleRegisterClicked}>Register</a>
+        <a href="" onClick={handleRegisterClick}>Register</a>
     </div>
 }

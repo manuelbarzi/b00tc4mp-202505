@@ -9,9 +9,15 @@ export const Posts = () => {
 
     useEffect(() => {
         try {
-            const posts = logic.getPosts()
+            logic.getPosts()
+                .then(posts => {
+                    setPosts(posts)
+                })
+                .catch(error => {
+                    console.error(error)
 
-            setPosts(posts)
+                    alert(error.message)
+                })
         } catch (error) {
             console.error(error)
 
@@ -21,9 +27,15 @@ export const Posts = () => {
 
     const handlePostRemoved = () => {
         try {
-            const posts = logic.getPosts()
+            logic.getPosts()
+                .then(posts => {
+                    setPosts(posts)
+                })
+                .catch(error => {
+                    console.error(error)
 
-            setPosts(posts)
+                    alert(error.message)
+                })
         } catch (error) {
             console.error(error)
 
@@ -33,9 +45,15 @@ export const Posts = () => {
 
     const handlePostLikeToggled = () => {
         try {
-            const posts = logic.getPosts()
+            logic.getPosts()
+                .then(posts => {
+                    setPosts(posts)
+                })
+                .catch(error => {
+                    console.error(error)
 
-            setPosts(posts)
+                    alert(error.message)
+                })
         } catch (error) {
             console.error(error)
 
@@ -45,9 +63,32 @@ export const Posts = () => {
 
     const handlePostSaveToggled = () => {
         try {
-            const posts = logic.getPosts()
+            logic.getPosts()
+                .then(posts => {
+                    setPosts(posts)
+                })
+                .catch(error => {
+                    console.error(error)
 
-            setPosts(posts)
+                    alert(error.message)
+                })
+        } catch (error) {
+            console.error(error)
+
+            alert(error.message)
+        }
+    }
+    const handlePostArchiveToggled = () => {
+        try {
+            logic.getPosts()
+                .then(posts => {
+                    setPosts(posts)
+                })
+                .catch(error => {
+                    console.error(error)
+
+                    alert(error.message)
+                })
         } catch (error) {
             console.error(error)
 
@@ -59,7 +100,7 @@ export const Posts = () => {
 
     return <div>
         <ul className="list-style-none p-0">
-            {posts.map(post => <Post post={post} onPostRemoved={handlePostRemoved} onPostLikeToggled={handlePostLikeToggled} onPostSaveToggled={handlePostSaveToggled} />)}
+            {posts.map(post => <Post post={post} onPostRemoved={handlePostRemoved} onPostLikeToggled={handlePostLikeToggled} onPostSaveToggled={handlePostSaveToggled} onPostArchiveToggled={handlePostArchiveToggled} />)}
         </ul>
     </div>
 }

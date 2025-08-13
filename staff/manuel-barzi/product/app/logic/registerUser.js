@@ -1,31 +1,53 @@
-import { data } from '../data'
+import { validate, errors } from 'com'
 
+/**
+ * Registers a user.
+ * 
+ * @example
+ ```js
+// demo
+
+registerUser('Sabrina2', 'sabrina2@mail.com', 'sabrina2', '123123123')
+    .then(() => console.log('user registered'))
+    .catch(error => console.error(error))
+ ```
+ * 
+ * @param {string} name The user name.
+ * @param {string} email The user email.
+ * @param {string} username The user username.
+ * @param {string} password The user password.
+ */
 export const registerUser = (name, email, username, password) => {
-    // TODO add regex validations
+    validate.name(name)
+    validate.email(email)
+    validate.username(username)
+    validate.password(password)
 
-    if (typeof name !== 'string') throw new TypeError('invalid name type')
-    if (!name.length) throw new RangeError('invalid name length')
+    return fetch('http://localhost:8080/users', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            name,
+            email,
+            username,
+            password
+        })
+    })
+        .catch(error => { throw new Error('connection error') })
+        .then(res => {
+            const { status } = res
 
-    if (typeof email !== 'string') throw new TypeError('invalid email type')
-    if (!email.length) throw new RangeError('invalid email length')
+            if (status === 201) return
 
-    if (typeof username !== 'string') throw new TypeError('invalid username type')
-    if (!username.length) throw new RangeError('invalid username length')
+            return res.json()
+                .catch(error => { throw new Error('json error') })
+                .then(body => {
+                    const { error, message } = body
 
-    if (typeof password !== 'string') throw new TypeError('invalid password type')
-    if (!password.length) throw new RangeError('invalid password length')
-
-    const users = data.loadUsers()
-
-    let user = users.find(user => user.email === email || user.username === username)
-
-    if (user) throw new Error('user already exists')
-
-    const id = parseInt((Date.now() + Math.random()).toString().replace('.', '')).toString(36)
-
-    user = { id, name, email, username, password, saved: [] }
-
-    users.push(user)
-
-    data.saveUsers(users)
+                    const constructor = errors[error]
+                    throw new constructor(message)
+                })
+        })
 }
