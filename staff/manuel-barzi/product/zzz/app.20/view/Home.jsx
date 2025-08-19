@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-import { Routes, Route, useNavigate, Navigate } from 'react-router'
 
 import { logic } from '../logic'
 
@@ -12,7 +11,7 @@ import { LikedPosts } from './LikedPosts'
 export const Home = ({ onUserLoggedOut }) => {
     const [name, setName] = useState('')
 
-    const navigate = useNavigate()
+    const [view, setView] = useState('posts')
 
     useEffect(() => {
         try {
@@ -32,9 +31,9 @@ export const Home = ({ onUserLoggedOut }) => {
         }
     }, [])
 
-    const handleNewPostClick = () => navigate('/new-post')
+    const handleNewPostClick = () => setView('new-post')
 
-    const handleNewPostCancelClick = () => navigate('/posts')
+    const handleNewPostCancelClick = () => setView('posts')
 
     const handleNewPostSubmit = event => {
         event.preventDefault()
@@ -49,7 +48,7 @@ export const Home = ({ onUserLoggedOut }) => {
                 .then(() => {
                     form.reset()
 
-                    navigate('/')
+                    setView('posts')
                 })
                 .catch(error => {
                     console.error(error)
@@ -78,25 +77,25 @@ export const Home = ({ onUserLoggedOut }) => {
     const handleSavedPostsClick = event => {
         event.preventDefault()
 
-        navigate('/saved-posts')
+        setView('saved-posts')
     }
 
     const handleArchivedPostsClick = event => {
         event.preventDefault()
 
-        navigate('/archived-posts')
+        setView('archived-posts')
     }
 
     const handleLikedPostsClick = event => {
         event.preventDefault()
 
-        navigate('/liked-posts')
+        setView('liked-posts')
     }
 
     const handleAppClick = event => {
         event.preventDefault()
 
-        navigate('/posts')
+        setView('posts')
     }
 
     console.debug('Home -> render')
@@ -109,29 +108,26 @@ export const Home = ({ onUserLoggedOut }) => {
         <a href="" onClick={handleSavedPostsClick}>Saved </a>
         <a href="" onClick={handleArchivedPostsClick}> Archived </a>
         <a href="" onClick={handleLikedPostsClick}> Liked</a>
-
-        <Routes>
-            <Route path="/" element={<Posts />} />
-            <Route path="/new-post" element={<div>
-                <h2>New post</h2>
-                <form onSubmit={handleNewPostSubmit}>
-                    <div className="flex flex-col m-y-10">
-                        <label htmlFor="image">Image</label>
-                        <input id="image" type="url" />
-                    </div>
-                    <div className="flex flex-col m-y-10">
-                        <label htmlFor="text">Text</label>
-                        <input id="text" type="text" />
-                    </div>
-                    <div className="flex justify-end">
-                        <button type="button" onClick={handleNewPostCancelClick}>Cancel</button>
-                        <button type="submit">Create</button>
-                    </div>
-                </form>
-            </div>} />
-            <Route path="/saved-posts" element={<SavedPosts />} />
-            <Route path="/archived-posts" element={<ArchivedPosts />} />
-            <Route path="/liked-posts" element={<LikedPosts />} />
-        </Routes>
+        {view === 'posts' && <Posts />}
+        {view === 'new-post' && <div>
+            <h2>New post</h2>
+            <form onSubmit={handleNewPostSubmit}>
+                <div className="flex flex-col m-y-10">
+                    <label htmlFor="image">Image</label>
+                    <input id="image" type="url" />
+                </div>
+                <div className="flex flex-col m-y-10">
+                    <label htmlFor="text">Text</label>
+                    <input id="text" type="text" />
+                </div>
+                <div className="flex justify-end">
+                    <button type="button" onClick={handleNewPostCancelClick}>Cancel</button>
+                    <button type="submit">Create</button>
+                </div>
+            </form>
+        </div>}
+        {view === 'saved-posts' && <SavedPosts />}
+        {view === 'archived-posts' && <ArchivedPosts />}
+        {view === 'liked-posts' && <LikedPosts />}
     </div>
 }

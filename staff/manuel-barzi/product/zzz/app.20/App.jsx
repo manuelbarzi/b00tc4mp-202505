@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 
-import { Routes, Route, useNavigate, Navigate, useLocation } from 'react-router'
+import { Routes, Route, useNavigate, Navigate } from 'react-router'
 
 import { Landing } from './view/Landing'
 import { Register } from './view/Register'
@@ -14,21 +14,17 @@ export const App = () => {
     const [loggedIn, setLoggedIn] = useState(null)
 
     const navigate = useNavigate()
-    const location = useLocation()
 
     useEffect(() => {
-        // NOTE we use setTimeout to simulate a delay in checking the user's login status
-        setTimeout(() => {
-            try {
-                const loggedIn = logic.isUserLoggedIn()
+        try {
+            const loggedIn = logic.isUserLoggedIn()
 
-                setLoggedIn(loggedIn)
-            } catch (error) {
-                console.error(error)
+            setLoggedIn(loggedIn)
+        } catch (error) {
+            console.error(error)
 
-                alert(error.message)
-            }
-        }, 1000)
+            alert(error.message)
+        }
     }, [])
 
     const handleRegisterClicked = () => navigate('/register')
@@ -50,17 +46,14 @@ export const App = () => {
     console.log('App -> render')
 
     return <Routes>
-        <Route path="/*" element={
+        <Route path="/" element={
             loggedIn === null ?
                 <Loading />
                 :
                 loggedIn ?
-                    <Home onUserLoggedOut={handleUserLoggedOut} />
+                    <Navigate to="/home" />
                     :
-                    location.pathname === '/' ?
-                        <Landing onRegisterClicked={handleRegisterClicked} onLoginClicked={handleLoginClicked} />
-                        :
-                        <Navigate to="/" />
+                    <Landing onRegisterClicked={handleRegisterClicked} onLoginClicked={handleLoginClicked} />
         } />
 
         <Route path="/register" element={
@@ -68,7 +61,7 @@ export const App = () => {
                 <Loading />
                 :
                 loggedIn ?
-                    <Navigate to="/" />
+                    <Navigate to="/home" />
                     :
                     <Register onLoginClicked={handleLoginClicked} onUserRegistered={handleUserRegistered} />
         } />
@@ -77,9 +70,19 @@ export const App = () => {
             <Loading />
             :
             loggedIn ?
-                <Navigate to="/" />
+                <Navigate to="/home" />
                 :
                 <Login onRegisterClicked={handleRegisterClicked} onUserLoggedIn={handleUserLoggedIn} />
+        } />
+
+        <Route path="/home" element={loggedIn === null ?
+            <Loading />
+            :
+            loggedIn ?
+                <Home onUserLoggedOut={handleUserLoggedOut} />
+                :
+                <Navigate to="/" />
+
         } />
 
         <Route path="*" element={<Navigate to="/" />} />

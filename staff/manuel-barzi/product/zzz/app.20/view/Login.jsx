@@ -37,9 +37,7 @@ export const Login = ({ onRegisterClicked, onUserLoggedIn }) => {
     console.debug('Login -> render')
 
     return <div>
-        <h1>App</h1>
-
-        <h2>Login</h2>
+        <h1>Login</h1>
         <form onSubmit={handleLoginSubmit}>
             <div className="flex flex-col m-y-10">
                 <label htmlFor="username">Username</label>
