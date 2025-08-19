@@ -28,7 +28,7 @@ export const App = () => {
 
                 alert(error.message)
             }
-        }, 1000)
+        }, 500)
     }, [])
 
     const handleRegisterClicked = () => navigate('/register')
