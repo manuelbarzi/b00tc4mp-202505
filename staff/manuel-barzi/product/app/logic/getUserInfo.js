@@ -1,5 +1,5 @@
 import { data } from '../data'
-import { errors } from 'com'
+import { errors, SystemError } from 'com'
 /**
  * Gets user info.
  * 
@@ -17,7 +17,7 @@ export const getUserInfo = () => {
     return fetch('http://localhost:8080/users/info', {
         method: 'GET',
         headers: {
-            Authorization: `Bearer ${data.loadUserId()}`
+            Authorization: `Bearer ${data.loadToken()}`
         },
 
     })
@@ -34,7 +34,7 @@ export const getUserInfo = () => {
                 .then(body => {
                     const { error, message } = body
 
-                    const constructor = errors[error]
+                    const constructor = errors[error] || SystemError
 
                     throw new constructor(message)
                 })

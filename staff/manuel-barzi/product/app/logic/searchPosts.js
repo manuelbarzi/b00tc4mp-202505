@@ -1,8 +1,22 @@
 import { data } from '../data'
-import { errors, SystemError } from 'com'
+import { validate, errors, SystemError } from 'com'
+/**
+ * Searches posts.
+ * 
+ * @example
+ ```js
+ // demo
 
-export const getSavedPosts = () => {
-    return fetch('http://localhost:8080/posts/saved', {
+ searchPosts('lo que sea')
+     .then(posts => console.log(posts))
+     .catch(error => console.error(error))
+ ```
+ */
+
+export const searchPosts = query => {
+    validate.query(query)
+
+    return fetch(`http://localhost:8080/posts?q=${query}`, {
         method: 'GET',
         headers: {
             Authorization: `Bearer ${data.loadToken()}`

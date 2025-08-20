@@ -78,6 +78,7 @@ export const Posts = () => {
             alert(error.message)
         }
     }
+
     const handlePostArchiveToggled = () => {
         try {
             logic.getPosts()
