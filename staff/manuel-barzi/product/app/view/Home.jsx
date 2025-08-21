@@ -79,38 +79,47 @@ export const Home = ({ onUserLoggedOut }) => {
     console.debug('Home -> render')
 
     return <div>
-        <h1><Link to="/">App</Link></h1>
-        <p className="text-center">Hello, {name}!</p>
-        <button type="button" onClick={handleLogoutClick}>Logout</button>
-        <button type="button" onClick={handleNewPostClick}>+</button>
-        <Link to="/saved-posts">Saved </Link>
-        <Link to="/archived-posts"> Archived </Link>
-        <Link to="/liked-posts"> Liked</Link>
-        <Link to="/search-posts">Search</Link>
+        <header className="bg-white fixed top-0 w-full">
+            <nav className="flex justify-between items-center p-4">
+                <h1><Link to="/">App</Link></h1>
+                <p className="text-center">Hello, {name}!</p>
+                <button type="button" onClick={handleLogoutClick}>Logout</button>
+                <Link to="/saved-posts">Saved</Link>
+                <Link to="/archived-posts">Archived</Link>
+                <Link to="/liked-posts">Liked</Link>
+                <Link to="/search-posts">Search</Link>
+            </nav>
+        </header>
 
-        <Routes>
-            <Route path="/" element={<Posts />} />
-            <Route path="/new-post" element={<div>
-                <h2>New post</h2>
-                <form onSubmit={handleNewPostSubmit}>
-                    <div className="flex flex-col m-y-10">
-                        <label htmlFor="image">Image</label>
-                        <input id="image" type="url" />
-                    </div>
-                    <div className="flex flex-col m-y-10">
-                        <label htmlFor="text">Text</label>
-                        <input id="text" type="text" />
-                    </div>
-                    <div className="flex justify-end">
-                        <button type="button" onClick={handleNewPostCancelClick}>Cancel</button>
-                        <button type="submit">Create</button>
-                    </div>
-                </form>
-            </div>} />
-            <Route path="/saved-posts" element={<SavedPosts />} />
-            <Route path="/archived-posts" element={<ArchivedPosts />} />
-            <Route path="/liked-posts" element={<LikedPosts />} />
-            <Route path="/search-posts" element={<Search />} />
-        </Routes>
+        <div className="py-15">
+            <Routes>
+                <Route path="/" element={<Posts />} />
+                <Route path="/new-post" element={<div>
+                    <h2>New post</h2>
+                    <form onSubmit={handleNewPostSubmit}>
+                        <div className="flex flex-col m-y-10">
+                            <label htmlFor="image">Image</label>
+                            <input id="image" type="url" />
+                        </div>
+                        <div className="flex flex-col m-y-10">
+                            <label htmlFor="text">Text</label>
+                            <input id="text" type="text" />
+                        </div>
+                        <div className="flex justify-end">
+                            <button type="button" onClick={handleNewPostCancelClick}>Cancel</button>
+                            <button type="submit">Create</button>
+                        </div>
+                    </form>
+                </div>} />
+                <Route path="/saved-posts" element={<SavedPosts />} />
+                <Route path="/archived-posts" element={<ArchivedPosts />} />
+                <Route path="/liked-posts" element={<LikedPosts />} />
+                <Route path="/search-posts" element={<Search />} />
+            </Routes>
+        </div>
+
+        <footer className="text-center fixed bottom-0 w-full bg-white">
+            <button class="border-1 px-2" type="button" onClick={handleNewPostClick}>+</button>
+        </footer>
     </div>
 }
