@@ -16,7 +16,7 @@ import { validate, errors, SystemError } from 'com'
 export const searchPosts = query => {
     validate.query(query)
 
-    return fetch(`http://localhost:8080/posts?q=${query}`, {
+    return fetch(`${import.meta.env.VITE_API_URL}/posts?q=${query}`, {
         method: 'GET',
         headers: {
             Authorization: `Bearer ${data.loadToken()}`
