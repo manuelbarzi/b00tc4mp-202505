@@ -11,7 +11,8 @@ import { LikedPosts } from './LikedPosts'
 import { Search } from './Search'
 
 export const Home = ({ onUserLoggedOut }) => {
-    const [name, setName] = useState('')
+    const [name, setName] = useState(null)
+    const [role, setRole] = useState(null)
 
     const navigate = useNavigate()
 
@@ -19,7 +20,10 @@ export const Home = ({ onUserLoggedOut }) => {
         try {
             logic.getUserInfo()
                 .then(user => {
+                    const role = logic.getUserRole()
+
                     setName(user.name)
+                    setRole(role)
                 })
                 .catch(error => {
                     console.error(error)
@@ -82,7 +86,9 @@ export const Home = ({ onUserLoggedOut }) => {
         <header className="bg-white fixed top-0 w-full">
             <nav className="flex justify-between items-center p-4">
                 <h1><Link to="/">App</Link></h1>
-                <p className="text-center">Hello, {name}!</p>
+
+                <p className="flex items-center gap-2 border-2 p-2">Hello, {name}! <img className="w-10" src={`/images/avatars/${role}.jpg`} /></p>
+
                 <button type="button" onClick={handleLogoutClick}>Logout</button>
                 <Link to="/saved-posts">Saved</Link>
                 <Link to="/archived-posts">Archived</Link>

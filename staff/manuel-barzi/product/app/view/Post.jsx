@@ -1,6 +1,22 @@
+import { useState, useEffect } from 'react'
+
 import { logic } from '../logic'
 
 export const Post = ({ post, onPostRemoved, onPostLikeToggled, onPostSaveToggled, onPostArchiveToggled }) => {
+    const [role, setRole] = useState(null)
+
+    useEffect(() => {
+        try {
+            const role = logic.getUserRole()
+
+            setRole(role)
+        } catch (error) {
+            console.error(error)
+
+            alert(error.message)
+        }
+    }, [])
+
     const handleDeletePostClick = () => {
         if (confirm('Delete post?')) {
             try {
@@ -90,6 +106,6 @@ export const Post = ({ post, onPostRemoved, onPostLikeToggled, onPostSaveToggled
         <button type="button" onClick={handleToggleLikePostClick}>{post.liked ? '❤️' : '🤍'} ({post.likesCount})</button>
         <button type="button" onClick={handleToggleSavePostClick}>{post.saved ? '🇺🇳' : '🏳️'}</button>
         {post.own && <button type="button" onClick={handleToggleArchivePostClick}>{post.archived ? '🗄' : '📁'}</button>}
-        {post.own && <button type="button" onClick={handleDeletePostClick}>🗑</button>}
+        {(post.own || role === 'administrator') && <button type="button" onClick={handleDeletePostClick}>🗑</button>}
     </li>
 }

@@ -50,10 +50,14 @@ User
 - email (string, required)
 - username (string, required)
 - password (string, required)
+- saved ([UUID], references Post.id)
+- role (string, required, enum regular|moderator|administrator)
 
 Post
 - id (UUID, required)
 - author (UUID, User.id, required)
 - image (string, required)
 - text (string, required)
-- date (string, ISO, requried)
+- date (Date, required, default now)
+- likes ([UUID], references User.id)
+- archived (boolean, required, default false)

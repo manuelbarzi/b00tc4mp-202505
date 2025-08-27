@@ -1,0 +1,1 @@
+curl -X GET -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2ODljNTEyNGIwN2EzMjllMWRiOGQ4ODciLCJpYXQiOjE3NTU2NzYxNTh9.uAdDqucvRM3fnToPbDkR88aSnhVMJXJBxR7dDowZIwY' http://localhost:8080/posts?q=lo+que+sea -v
