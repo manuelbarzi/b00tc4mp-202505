@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Routes, Route, useNavigate, Link } from 'react-router'
 
-import { useRole } from '../hooks'
-
 import { logic } from '../logic'
 
 import { Posts } from './Posts'
@@ -14,15 +12,19 @@ import { Search } from './Search'
 
 export const Home = ({ onUserLoggedOut }) => {
     const [name, setName] = useState(null)
-
-    const role = useRole()
+    const [role, setRole] = useState(null)
 
     const navigate = useNavigate()
 
     useEffect(() => {
         try {
             logic.getUserInfo()
-                .then(user => setName(user.name))
+                .then(user => {
+                    const role = logic.getUserRole()
+
+                    setName(user.name)
+                    setRole(role)
+                })
                 .catch(error => {
                     console.error(error)
 
@@ -123,7 +125,7 @@ export const Home = ({ onUserLoggedOut }) => {
         </div>
 
         <footer className="text-center fixed bottom-0 w-full bg-white">
-            <button className="border-1 px-2" type="button" onClick={handleNewPostClick}>+</button>
+            <button class="border-1 px-2" type="button" onClick={handleNewPostClick}>+</button>
         </footer>
     </div>
 }

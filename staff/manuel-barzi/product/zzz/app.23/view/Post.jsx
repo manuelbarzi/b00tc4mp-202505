@@ -1,11 +1,21 @@
 import { useState, useEffect } from 'react'
 
-import { useRole } from '../hooks'
-
 import { logic } from '../logic'
 
 export const Post = ({ post, onPostRemoved, onPostLikeToggled, onPostSaveToggled, onPostArchiveToggled }) => {
-    const role = useRole()
+    const [role, setRole] = useState(null)
+
+    useEffect(() => {
+        try {
+            const role = logic.getUserRole()
+
+            setRole(role)
+        } catch (error) {
+            console.error(error)
+
+            alert(error.message)
+        }
+    }, [])
 
     const handleDeletePostClick = () => {
         if (confirm('Delete post?')) {
