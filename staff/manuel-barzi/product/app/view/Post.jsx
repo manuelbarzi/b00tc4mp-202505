@@ -4,7 +4,7 @@ import { useRole } from '../hooks'
 
 import { logic } from '../logic'
 
-export const Post = ({ post, onPostRemoved, onPostLikeToggled, onPostSaveToggled, onPostArchiveToggled }) => {
+export const Post = ({ post, onPostRemoved, onPostLikeToggled, onPostSaveToggled, onPostArchiveToggled, alert }) => {
     const role = useRole()
 
     const handleDeletePostClick = () => {
