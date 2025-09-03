@@ -1,30 +1,32 @@
-import { useState, useEffect } from 'react'
-
 import { useRole } from '../hooks'
 
 import { logic } from '../logic'
 
-export const Post = ({ post, onPostRemoved, onPostLikeToggled, onPostSaveToggled, onPostArchiveToggled, alert }) => {
+export const Post = ({ post, onPostRemoved, onPostLikeToggled, onPostSaveToggled, onPostArchiveToggled, alert, confirm }) => {
     const role = useRole()
 
     const handleDeletePostClick = () => {
-        if (confirm('Delete post?')) {
-            try {
-                logic.removePost(post.id)
-                    .then(() => {
-                        onPostRemoved()
-                    })
-                    .catch(error => {
-                        console.error(error)
+        confirm('Delete post?')
+            .then(ok => {
+                if (!ok) return
 
-                        alert(error.message)
-                    })
-            } catch (error) {
-                console.error(error)
+                try {
+                    logic.removePost(post.id)
+                        .then(() => {
+                            onPostRemoved()
+                        })
+                        .catch(error => {
+                            console.error(error)
 
-                alert(error.message)
-            }
-        }
+                            alert(error.message)
+                        })
+                } catch (error) {
+                    console.error(error)
+
+                    alert(error.message)
+                }
+            })
+
     }
 
     const handleToggleLikePostClick = () => {

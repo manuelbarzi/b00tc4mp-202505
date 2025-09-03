@@ -12,7 +12,7 @@ import { LikedPosts } from './LikedPosts'
 import { Search } from './Search'
 import { NewPost } from './NewPost'
 
-export const Home = ({ onUserLoggedOut, alert }) => {
+export const Home = ({ onUserLoggedOut, alert, confirm }) => {
     const [name, setName] = useState(null)
 
     const role = useRole()
@@ -72,12 +72,12 @@ export const Home = ({ onUserLoggedOut, alert }) => {
 
         <div className="py-15">
             <Routes>
-                <Route path="/" element={<Posts alert={alert} />} />
+                <Route path="/" element={<Posts alert={alert} confirm={confirm} />} />
                 <Route path="/new-post" element={<NewPost onCreated={handleNewPostCreated} onCancelled={handleNewPostCancelled} alert={alert} />} />
-                <Route path="/saved-posts" element={<SavedPosts alert={alert} />} />
-                <Route path="/archived-posts" element={<ArchivedPosts alert={alert} />} />
-                <Route path="/liked-posts" element={<LikedPosts alert={alert} />} />
-                <Route path="/search-posts" element={<Search alert={alert} />} />
+                <Route path="/saved-posts" element={<SavedPosts alert={alert} confirm={confirm} />} />
+                <Route path="/archived-posts" element={<ArchivedPosts alert={alert} confirm={confirm} />} />
+                <Route path="/liked-posts" element={<LikedPosts alert={alert} confirm={confirm} />} />
+                <Route path="/search-posts" element={<Search alert={alert} confirm={confirm} />} />
             </Routes>
         </div>
 
