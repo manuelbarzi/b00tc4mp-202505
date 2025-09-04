@@ -11,25 +11,7 @@ export const SavedPosts = () => {
 
     const [posts, setPosts] = useState([])
 
-    useEffect(() => {
-        try {
-            logic.getSavedPosts()
-                .then(posts => {
-                    setPosts(posts)
-                })
-                .catch(error => {
-                    console.error(error)
-
-                    alert(error.message)
-                })
-        } catch (error) {
-            console.error(error)
-
-            alert(error.message)
-        }
-    }, [])
-
-    const handlePostRemoved = () => {
+    const loadPosts = () => {
         try {
             logic.getSavedPosts()
                 .then(posts => {
@@ -47,65 +29,21 @@ export const SavedPosts = () => {
         }
     }
 
-    const handlePostLikeToggled = () => {
-        try {
-            logic.getSavedPosts()
-                .then(posts => {
-                    setPosts(posts)
-                })
-                .catch(error => {
-                    console.error(error)
+    useEffect(() => loadPosts(), [])
 
-                    alert(error.message)
-                })
-        } catch (error) {
-            console.error(error)
+    const handlePostRemoved = () => loadPosts()
 
-            alert(error.message)
-        }
-    }
+    const handlePostLikeToggled = () => loadPosts()
 
-    const handlePostSaveToggled = () => {
-        try {
-            logic.getSavedPosts()
-                .then(posts => {
-                    setPosts(posts)
-                })
-                .catch(error => {
-                    console.error(error)
+    const handlePostSaveToggled = () => loadPosts()
 
-                    alert(error.message)
-                })
-        } catch (error) {
-            console.error(error)
-
-            alert(error.message)
-        }
-    }
-
-    const handlePostArchiveToggled = () => {
-        try {
-            logic.getSavedPosts()
-                .then(posts => {
-                    setPosts(posts)
-                })
-                .catch(error => {
-                    console.error(error)
-
-                    alert(error.message)
-                })
-        } catch (error) {
-            console.error(error)
-
-            alert(error.message)
-        }
-    }
+    const handlePostArchiveToggled = () => loadPosts()
 
     console.debug('SavedPosts -> render')
 
     return <div>
         <ul className="list-style-none p-0">
-            {posts.map(post => <Post key={post.id} post={post} onPostRemoved={handlePostRemoved} onPostLikeToggled={handlePostLikeToggled} onPostSaveToggled={handlePostSaveToggled} onPostArchiveToggled={handlePostArchiveToggled} alert={alert} confirm={confirm} />)}
+            {posts.map(post => <Post key={post.id} post={post} onPostRemoved={handlePostRemoved} onPostLikeToggled={handlePostLikeToggled} onPostSaveToggled={handlePostSaveToggled} onPostArchiveToggled={handlePostArchiveToggled} />)}
         </ul>
     </div>
 }
