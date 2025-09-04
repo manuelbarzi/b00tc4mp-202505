@@ -1,3 +1,4 @@
+import { useSearchParams } from 'react-router'
 import { useState, useEffect } from 'react'
 
 import { useContext } from '../hooks'
@@ -6,14 +7,17 @@ import { Post } from './Post'
 
 import { logic } from '../logic'
 
-export const ArchivedPosts = () => {
+export const SearchPosts = () => {
     const { alert } = useContext()
+
+    const [search, setSearch] = useSearchParams()
+    const query = search.get('q') || ''
 
     const [posts, setPosts] = useState([])
 
     useEffect(() => {
         try {
-            logic.getArchivedPosts()
+            query && logic.searchPosts(query)
                 .then(posts => {
                     setPosts(posts)
                 })
@@ -27,12 +31,21 @@ export const ArchivedPosts = () => {
 
             alert(error.message)
         }
-    }, [])
+    }, [query])
+
+
+    const handleSearchSubmit = event => {
+        event.preventDefault()
+
+        const query = event.target.query.value
+
+        setSearch({ q: query })
+    }
 
     const handlePostRemoved = () => {
         try {
-            logic.getArchivedPosts()
-                .then((posts) => {
+            logic.searchPosts(query)
+                .then(posts => {
                     setPosts(posts)
                 })
                 .catch(error => {
@@ -49,8 +62,8 @@ export const ArchivedPosts = () => {
 
     const handlePostLikeToggled = () => {
         try {
-            logic.getArchivedPosts()
-                .then((posts) => {
+            logic.searchPosts(query)
+                .then(posts => {
                     setPosts(posts)
                 })
                 .catch(error => {
@@ -67,8 +80,8 @@ export const ArchivedPosts = () => {
 
     const handlePostSaveToggled = () => {
         try {
-            logic.getArchivedPosts()
-                .then((posts) => {
+            logic.searchPosts(query)
+                .then(posts => {
                     setPosts(posts)
                 })
                 .catch(error => {
@@ -85,8 +98,8 @@ export const ArchivedPosts = () => {
 
     const handlePostArchiveToggled = () => {
         try {
-            logic.getArchivedPosts()
-                .then((posts) => {
+            logic.searchPosts(query)
+                .then(posts => {
                     setPosts(posts)
                 })
                 .catch(error => {
@@ -101,12 +114,17 @@ export const ArchivedPosts = () => {
         }
     }
 
-    console.debug('ArchivedPosts -> render')
+    console.debug('Search -> render')
 
     return <div>
+        <form onSubmit={handleSearchSubmit}>
+            <input type="text" placeholder="Search posts..." id="query" defaultValue={query} />
+
+            <button type="submit">Search</button>
+        </form>
+
         <ul className="list-style-none p-0">
             {posts.map(post => <Post key={post.id} post={post} onPostRemoved={handlePostRemoved} onPostLikeToggled={handlePostLikeToggled} onPostSaveToggled={handlePostSaveToggled} onPostArchiveToggled={handlePostArchiveToggled} />)}
         </ul>
     </div>
 }
-

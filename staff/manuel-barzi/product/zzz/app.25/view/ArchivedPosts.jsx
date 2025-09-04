@@ -1,14 +1,10 @@
 import { useState, useEffect } from 'react'
 
-import { useContext } from '../hooks'
-
 import { Post } from './Post'
 
 import { logic } from '../logic'
 
-export const ArchivedPosts = () => {
-    const { alert } = useContext()
-
+export const ArchivedPosts = ({ alert, confirm }) => {
     const [posts, setPosts] = useState([])
 
     useEffect(() => {
@@ -105,7 +101,7 @@ export const ArchivedPosts = () => {
 
     return <div>
         <ul className="list-style-none p-0">
-            {posts.map(post => <Post key={post.id} post={post} onPostRemoved={handlePostRemoved} onPostLikeToggled={handlePostLikeToggled} onPostSaveToggled={handlePostSaveToggled} onPostArchiveToggled={handlePostArchiveToggled} />)}
+            {posts.map(post => <Post key={post.id} post={post} onPostRemoved={handlePostRemoved} onPostLikeToggled={handlePostLikeToggled} onPostSaveToggled={handlePostSaveToggled} onPostArchiveToggled={handlePostArchiveToggled} alert={alert} confirm={confirm} />)}
         </ul>
     </div>
 }

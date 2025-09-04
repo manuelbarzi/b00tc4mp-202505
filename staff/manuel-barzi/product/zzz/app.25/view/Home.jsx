@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Routes, Route, useNavigate, Link } from 'react-router'
 
-import { useRole, useContext } from '../hooks'
+import { useRole } from '../hooks'
 
 import { logic } from '../logic'
 
@@ -9,15 +9,13 @@ import { Posts } from './Posts'
 import { SavedPosts } from './SavedPosts'
 import { ArchivedPosts } from './ArchivedPosts'
 import { LikedPosts } from './LikedPosts'
-import { SearchPosts } from './SearchPosts'
+import { Search } from './Search'
 import { NewPost } from './NewPost'
 
-export const Home = ({ onUserLoggedOut }) => {
+export const Home = ({ onUserLoggedOut, alert, confirm }) => {
     const [name, setName] = useState(null)
 
     const role = useRole()
-
-    const { alert } = useContext()
 
     const navigate = useNavigate()
 
@@ -62,7 +60,7 @@ export const Home = ({ onUserLoggedOut }) => {
             <nav className="flex justify-between items-center p-4">
                 <h1><Link to="/">App</Link></h1>
 
-                <p className="flex items-center gap-2">Hello, {name}! <img className="h-5" src={`/images/avatars/${role}.jpg`} /></p>
+                <p className="flex items-center gap-2 border-2 p-2">Hello, {name}! <img className="w-10" src={`/images/avatars/${role}.jpg`} /></p>
 
                 <button type="button" onClick={handleLogoutClick}>Logout</button>
                 <Link to="/saved-posts">Saved</Link>
@@ -74,12 +72,12 @@ export const Home = ({ onUserLoggedOut }) => {
 
         <div className="py-15">
             <Routes>
-                <Route path="/" element={<Posts />} />
-                <Route path="/new-post" element={<NewPost onCreated={handleNewPostCreated} onCancelled={handleNewPostCancelled} />} />
-                <Route path="/saved-posts" element={<SavedPosts />} />
-                <Route path="/archived-posts" element={<ArchivedPosts />} />
-                <Route path="/liked-posts" element={<LikedPosts />} />
-                <Route path="/search-posts" element={<SearchPosts />} />
+                <Route path="/" element={<Posts alert={alert} confirm={confirm} />} />
+                <Route path="/new-post" element={<NewPost onCreated={handleNewPostCreated} onCancelled={handleNewPostCancelled} alert={alert} />} />
+                <Route path="/saved-posts" element={<SavedPosts alert={alert} confirm={confirm} />} />
+                <Route path="/archived-posts" element={<ArchivedPosts alert={alert} confirm={confirm} />} />
+                <Route path="/liked-posts" element={<LikedPosts alert={alert} confirm={confirm} />} />
+                <Route path="/search-posts" element={<Search alert={alert} confirm={confirm} />} />
             </Routes>
         </div>
 

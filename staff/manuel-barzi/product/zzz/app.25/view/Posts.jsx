@@ -1,19 +1,15 @@
 import { useState, useEffect } from 'react'
 
-import { useContext } from '../hooks'
-
 import { Post } from './Post'
 
 import { logic } from '../logic'
 
-export const ArchivedPosts = () => {
-    const { alert } = useContext()
-
+export const Posts = ({ alert, confirm }) => {
     const [posts, setPosts] = useState([])
 
     useEffect(() => {
         try {
-            logic.getArchivedPosts()
+            logic.getPosts()
                 .then(posts => {
                     setPosts(posts)
                 })
@@ -31,8 +27,8 @@ export const ArchivedPosts = () => {
 
     const handlePostRemoved = () => {
         try {
-            logic.getArchivedPosts()
-                .then((posts) => {
+            logic.getPosts()
+                .then(posts => {
                     setPosts(posts)
                 })
                 .catch(error => {
@@ -49,8 +45,8 @@ export const ArchivedPosts = () => {
 
     const handlePostLikeToggled = () => {
         try {
-            logic.getArchivedPosts()
-                .then((posts) => {
+            logic.getPosts()
+                .then(posts => {
                     setPosts(posts)
                 })
                 .catch(error => {
@@ -67,8 +63,8 @@ export const ArchivedPosts = () => {
 
     const handlePostSaveToggled = () => {
         try {
-            logic.getArchivedPosts()
-                .then((posts) => {
+            logic.getPosts()
+                .then(posts => {
                     setPosts(posts)
                 })
                 .catch(error => {
@@ -85,8 +81,8 @@ export const ArchivedPosts = () => {
 
     const handlePostArchiveToggled = () => {
         try {
-            logic.getArchivedPosts()
-                .then((posts) => {
+            logic.getPosts()
+                .then(posts => {
                     setPosts(posts)
                 })
                 .catch(error => {
@@ -101,12 +97,11 @@ export const ArchivedPosts = () => {
         }
     }
 
-    console.debug('ArchivedPosts -> render')
+    console.debug('Posts -> render')
 
     return <div>
         <ul className="list-style-none p-0">
-            {posts.map(post => <Post key={post.id} post={post} onPostRemoved={handlePostRemoved} onPostLikeToggled={handlePostLikeToggled} onPostSaveToggled={handlePostSaveToggled} onPostArchiveToggled={handlePostArchiveToggled} />)}
+            {posts.map(post => <Post key={post.id} post={post} onPostRemoved={handlePostRemoved} onPostLikeToggled={handlePostLikeToggled} onPostSaveToggled={handlePostSaveToggled} onPostArchiveToggled={handlePostArchiveToggled} alert={alert} confirm={confirm} />)}
         </ul>
     </div>
 }
-

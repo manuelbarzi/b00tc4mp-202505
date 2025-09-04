@@ -1,12 +1,8 @@
 import { useState, useEffect } from 'react'
 
-import { useContext } from '../hooks'
-
 import { logic } from '../logic'
 
 export const useRole = () => {
-    const { alert } = useContext()
-
     const [role, setRole] = useState(null)
 
     useEffect(() => {

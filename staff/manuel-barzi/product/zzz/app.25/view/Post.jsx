@@ -1,11 +1,9 @@
-import { useRole, useContext } from '../hooks'
+import { useRole } from '../hooks'
 
 import { logic } from '../logic'
 
-export const Post = ({ post, onPostRemoved, onPostLikeToggled, onPostSaveToggled, onPostArchiveToggled }) => {
+export const Post = ({ post, onPostRemoved, onPostLikeToggled, onPostSaveToggled, onPostArchiveToggled, alert, confirm }) => {
     const role = useRole()
-
-    const { alert, confirm } = useContext()
 
     const handleDeletePostClick = () => {
         confirm('Delete post?')
