@@ -28,8 +28,8 @@ export const validate = {
         if (typeof password !== 'string') throw new ValidationError('invalid password')
         if (!password.length) throw new ValidationError('invalid password length')
 
-        const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/
-        if (!passwordRegex.test(password)) throw new ValidationError('invalid password format')
+        // const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/
+        // if (!passwordRegex.test(password)) throw new ValidationError('invalid password format')
     },
 
     userId(userId) {
